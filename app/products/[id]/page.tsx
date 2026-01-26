@@ -32,6 +32,13 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 
+// For static export support
+export async function generateStaticParams() {
+  return data.products.map((product) => ({
+    id: product.id.toString(),
+  }));
+}
+
 interface Product {
   id: number;
   name: string;
