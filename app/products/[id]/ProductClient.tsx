@@ -39,9 +39,10 @@ interface Product {
   rating: number;
   reviews: number;
   description: string;
-  specs: Record<string, string>;
+  specs: Record<string, any>;
   image: string;
   tag?: string | null;
+  category: string;
 }
 
 export default function ProductDetails({
