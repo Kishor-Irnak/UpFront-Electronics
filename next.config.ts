@@ -1,7 +1,9 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  output: "export",
   images: {
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: "https",
@@ -9,6 +11,8 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  basePath: "/UpFront-Electronics", // Replace with your repository name
+  assetPrefix: "/UpFront-Electronics", // Replace with your repository name
 };
 
 export default nextConfig;
