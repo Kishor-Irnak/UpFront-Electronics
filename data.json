@@ -1,0 +1,217 @@
+{
+  "topBar": {
+    "message": "Tell a friend about Electhub Electronics & get 30% off your next order.",
+    "links": ["Offer Zone", "Gift Cards", "INR", "English"]
+  },
+  "navigation": [
+    { "name": "Home", "href": "/", "badge": null },
+    { "name": "Today's Deal", "href": "/products", "badge": "HOT" },
+    {
+      "name": "Smart Watches",
+      "href": "/products?category=smart-watch",
+      "badge": null
+    },
+    { "name": "New Arrivals", "href": "/products?sort=new", "badge": "NEW" },
+    { "name": "About Us", "href": "/about", "badge": null },
+    { "name": "All Brands", "href": "/brands", "badge": null },
+    { "name": "Blog", "href": "/blog", "badge": null }
+  ],
+  "heroBanner": {
+    "title": "END SEASON SMARTPHONES",
+    "subtitle": "LAST CALL FOR UP TO ₹20,000 OFF!",
+    "image": "https://images.unsplash.com/photo-1592750475338-74b7b21085ab?auto=format&fit=crop&q=80&w=1200",
+    "buttonText": "Start Buying"
+  },
+  "smallBanners": [
+    {
+      "id": 1,
+      "title": "CATCH BIG DEALS CONSOLES",
+      "subtitle": "from ₹15,000 OFF!",
+      "image": "https://images.unsplash.com/photo-1605901309584-818e25960b8f?auto=format&fit=crop&q=80&w=300",
+      "bgColor": "bg-gray-100"
+    },
+    {
+      "id": 2,
+      "title": "NEW STANDARD SMART G3",
+      "subtitle": "from ₹5,999 OFF!",
+      "image": "https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?auto=format&fit=crop&q=80&w=300",
+      "bgColor": "bg-gray-100"
+    },
+    {
+      "id": 3,
+      "title": "BIG THE STANDARD HEADPHONES",
+      "subtitle": "from ₹2,500 OFF!",
+      "image": "https://images.unsplash.com/photo-1484704849700-f032a568e944?auto=format&fit=crop&q=80&w=300",
+      "bgColor": "bg-gray-100"
+    }
+  ],
+  "features": [
+    {
+      "title": "Worldwide Shipping",
+      "subtitle": "Order above ₹1000",
+      "icon": "plane"
+    },
+    {
+      "title": "Easy 30 Day Returns",
+      "subtitle": "Back returns in 7 days",
+      "icon": "rotate-ccw"
+    },
+    {
+      "title": "Money Back Guarantee",
+      "subtitle": "Guarantee with in 30 days",
+      "icon": "wallet"
+    },
+    {
+      "title": "Easy Online Support",
+      "subtitle": "Any time support",
+      "icon": "headset"
+    }
+  ],
+  "products": [
+    {
+      "id": 1,
+      "name": "New Apple iPhone 12 Pro Max Gold",
+      "price": 89999,
+      "oldPrice": 119999,
+      "rating": 5,
+      "reviews": 1240,
+      "description": "The iPhone 12 Pro Max is the largest and most powerful phone in Apple's 2020 lineup. It features a stunning 6.7-inch Super Retina XDR display, a Ceramic Shield front cover, and a surgical-grade stainless steel band.",
+      "specs": {
+        "Display": "6.7-inch Super Retina XDR",
+        "Processor": "A14 Bionic chip",
+        "Camera": "Pro 12MP camera system",
+        "Battery": "Up to 20 hours video playback"
+      },
+      "image": "https://images.unsplash.com/photo-1605236453806-6ff36851218e?auto=format&fit=crop&q=80&w=600",
+      "tag": "-25%",
+      "category": "Electronics"
+    },
+    {
+      "id": 2,
+      "name": "Silicone Watch Band for Apple Series SIX",
+      "price": 1499,
+      "oldPrice": 2999,
+      "rating": 4,
+      "reviews": 85,
+      "description": "High-quality soft silicone band for Apple Watch Series 6, SE, 5, 4. Comfortable, durable, and available in multiple colors.",
+      "specs": {
+        "Material": "Soft Silicone",
+        "Compatibility": "Apple Watch 38mm/40mm/42mm/44mm",
+        "Buckle": "Stainless Steel"
+      },
+      "image": "https://images.unsplash.com/photo-1551816230-ef5deaed4a26?auto=format&fit=crop&q=80&w=600",
+      "category": "Electronics",
+      "tag": null
+    },
+    {
+      "id": 3,
+      "name": "All-new Amazon Echo Dot (4th Gen)",
+      "price": 3499,
+      "rating": 4.8,
+      "reviews": 3500,
+      "description": "Meet the all-new Echo Dot. Use your voice to play music, control your smart home, and get information, news, weather, and more.",
+      "specs": {
+        "Audio": "1.6 inch speaker",
+        "Connectivity": "Wi-Fi, Bluetooth",
+        "Size": "3.9 x 3.9 x 3.5 inches"
+      },
+      "image": "https://images.unsplash.com/photo-1589418306015-aa728285514c?auto=format&fit=crop&q=80&w=600",
+      "tag": "OUT OF STOCK",
+      "category": "Electronics"
+    },
+    {
+      "id": 4,
+      "name": "Portable Optical Mouse Wireless USB",
+      "price": 899,
+      "oldPrice": 1299,
+      "rating": 4.5,
+      "reviews": 420,
+      "description": "Wireless optical mouse with ergonomic design, 2.4GHz connection, and long battery life. Perfect for laptops and desktops.",
+      "specs": {
+        "DPI": "1600 Adjustable",
+        "Battery": "1x AA (not included)",
+        "Range": "10 meters"
+      },
+      "image": "https://images.unsplash.com/photo-1605773527852-c546a8584ea3?auto=format&fit=crop&q=80&w=600",
+      "category": "Computer & Laptop",
+      "tag": "-30%"
+    },
+    {
+      "id": 5,
+      "name": "Beats Solo3 Wireless Headphones",
+      "price": 16999,
+      "oldPrice": 19999,
+      "rating": 5,
+      "reviews": 890,
+      "description": "With up to 40 hours of battery life, Beats Solo3 Wireless is your perfect everyday headphone. Premium playback and fine-tuned acoustics maximize clarity, breadth, and balance.",
+      "specs": {
+        "Battery": "40 Hours",
+        "Chip": "Apple W1",
+        "Connectivity": "Wireless Bluetooth"
+      },
+      "image": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&q=80&w=600",
+      "category": "Electronics",
+      "tag": null
+    },
+    {
+      "id": 6,
+      "name": "JBL Clip Portable Bluetooth Speaker",
+      "price": 4499,
+      "oldPrice": 5999,
+      "rating": 4.7,
+      "reviews": 2100,
+      "description": "Cool, portable, and waterproof. The vibrant fresh looking JBL Clip 4 delivers surprisingly rich JBL Original Pro Sound in a compact package.",
+      "specs": {
+        "Waterproof": "IP67",
+        "Battery": "10 Hours",
+        "Output": "5W RMS"
+      },
+      "image": "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?auto=format&fit=crop&q=80&w=600",
+      "tag": "-25%",
+      "category": "Electronics"
+    },
+    {
+      "id": 7,
+      "name": "MacBook Air M2",
+      "price": 114900,
+      "oldPrice": 119900,
+      "rating": 4.9,
+      "reviews": 560,
+      "description": "Redesigned around the next-generation M2 chip, MacBook Air is strikingly thin and brings exceptional speed and power efficiency within its durable all-aluminum enclosure.",
+      "specs": {
+        "Chip": "Apple M2",
+        "Memory": "8GB Unified",
+        "Storage": "256GB SSD"
+      },
+      "image": "https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?auto=format&fit=crop&q=80&w=600",
+      "category": "Computer & Laptop",
+      "tag": "NEW"
+    },
+    {
+      "id": 8,
+      "name": "Samsung Galaxy Tab S8",
+      "price": 58999,
+      "oldPrice": 69999,
+      "rating": 4.6,
+      "reviews": 320,
+      "description": "Galaxy Tab S8 features the fastest chip ever in a Galaxy Tablet. Included S Pen snaps magnetically to the back of Galaxy Tab S8 Series to charge.",
+      "specs": {
+        "Display": "11-inch LCD",
+        "Processor": "Snapdragon 8 Gen 1",
+        "Battery": "8000 mAh"
+      },
+      "image": "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?auto=format&fit=crop&q=80&w=600",
+      "category": "Mobile & Tablet",
+      "tag": "-15%"
+    }
+  ],
+  "categories": [
+    { "name": "Speaker", "icon": "speaker" },
+    { "name": "Laptop", "icon": "laptop" },
+    { "name": "Headphone", "icon": "headphones" },
+    { "name": "Tablet", "icon": "tablet-smartphone" },
+    { "name": "Camera", "icon": "camera" },
+    { "name": "Android TV", "icon": "tv" },
+    { "name": "Smart Mobiles", "icon": "smartphone" }
+  ]
+}
