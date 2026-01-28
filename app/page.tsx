@@ -217,7 +217,7 @@ export default function Home() {
           </Link>
         </div>
         <ScrollArea className="w-full whitespace-nowrap pb-4">
-          <div className="flex gap-4 px-4">
+          <div className="flex justify-between items-start gap-2 px-4 min-w-full">
             {data.categories.map((cat, i) => {
               const Icon = IconMap[cat.icon];
               return (

@@ -36,7 +36,7 @@ export function Navbar() {
   return (
     <div className="flex flex-col w-full sticky top-0 z-50 bg-white shadow-sm">
       {/* 1. Top Bar (Yellow) */}
-      <div className="bg-[#ffd700] px-4 py-2 text-[11px] md:text-xs font-medium text-slate-900 tracking-wide">
+      <div className="bg-[#ffd700] px-4 py-1.5 text-[10px] md:text-xs font-semibold text-slate-900 tracking-wide">
         <div className="container mx-auto flex flex-col md:flex-row justify-between items-center gap-2">
           <p className="hidden md:block opacity-90">{data.topBar.message}</p>
           <div className="flex items-center gap-6">
@@ -47,7 +47,7 @@ export function Navbar() {
             <Link href="#" className="hover:text-black/70 transition-colors">
               Gift Cards
             </Link>
-            <div className="w-[1px] h-3 bg-black/10 hidden md:block" />
+            <div className="w-px h-3 bg-black/10 hidden md:block" />
             <DropdownMenu>
               <DropdownMenuTrigger className="flex items-center gap-1 hover:text-black/70 outline-none transition-colors">
                 INR <ChevronDown className="h-3 w-3 opacity-60" />
@@ -71,15 +71,15 @@ export function Navbar() {
       </div>
 
       {/* 2. Main Header */}
-      <header className="border-b py-5">
+      <header className="border-b py-2.5 md:py-4">
         <div className="container mx-auto px-4 flex flex-col lg:flex-row items-center justify-between gap-6">
           <Link href="/" className="flex items-center gap-2 group">
-            <span className="text-3xl font-black text-slate-900 tracking-tighter group-hover:opacity-90 transition-opacity">
+            <span className="text-2xl md:text-3xl font-black text-slate-900 tracking-tighter group-hover:opacity-90 transition-opacity">
               electhub
             </span>
           </Link>
 
-          <div className="flex-1 w-full max-w-3xl px-0 lg:px-12">
+          <div className="hidden lg:block flex-1 w-full max-w-3xl px-0 lg:px-12">
             <div className="relative flex items-center w-full group">
               <Input
                 type="search"
@@ -95,7 +95,7 @@ export function Navbar() {
             </div>
           </div>
 
-          <div className="flex items-center gap-8">
+          <div className="hidden lg:flex items-center gap-8">
             <Link
               href="/profile"
               className="flex flex-col items-center gap-1 text-slate-500 hover:text-slate-900 transition-colors group"
@@ -179,7 +179,7 @@ export function Navbar() {
               >
                 {item.name}
                 {item.badge && (
-                  <span className="absolute -top-1 -right-5 bg-[#ffd700] text-slate-900 text-[8px] px-1.5 py-px rounded-sm font-black shadow-sm transform -rotate-12 group-hover:rotate-0 transition-transform">
+                  <span className="absolute -top-1 -right-5 bg-[#ffd700] text-slate-900 text-[8px] px-1.5 py-px rounded-sm font-black shadow-sm transform transition-transform">
                     {item.badge}
                   </span>
                 )}
@@ -195,7 +195,7 @@ export function Navbar() {
       </div>
 
       {/* Mobile Menu Trigger (Visible on small screens) */}
-      <div className="lg:hidden container mx-auto px-4 py-2 border-t flex justify-between items-center bg-gray-50">
+      <div className="hidden container mx-auto px-4 py-2 border-t justify-between items-center bg-gray-50">
         <span className="text-xs font-bold text-slate-500">Menu</span>
         <Button variant="ghost" size="icon">
           <Menu className="h-6 w-6 text-slate-900" />

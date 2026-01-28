@@ -13,8 +13,7 @@
     },
     { "name": "New Arrivals", "href": "/products?sort=new", "badge": "NEW" },
     { "name": "About Us", "href": "/about", "badge": null },
-    { "name": "All Brands", "href": "/brands", "badge": null },
-    { "name": "Blog", "href": "/blog", "badge": null }
+    { "name": "All Brands", "href": "/brands", "badge": null }
   ],
   "heroBanner": {
     "title": "END SEASON SMARTPHONES",
