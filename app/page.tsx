@@ -29,9 +29,11 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Card, CardContent } from "@/components/ui/card";
 import { useCartStore } from "@/store/cartStore";
 import data from "@/data.json";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import { ProductCard } from "@/components/product-card";
 
 // Icon Mapping
 const IconMap: Record<string, React.ElementType> = {
@@ -46,119 +48,6 @@ const IconMap: Record<string, React.ElementType> = {
   camera: Camera,
   tv: Tv,
   smartphone: Smartphone,
-};
-
-const StarRating = ({ rating }: { rating: number }) => (
-  <div className="flex items-center gap-0.5">
-    {[...Array(5)].map((_, i) => (
-      <Star
-        key={i}
-        className={`h-3 w-3 ${i < Math.floor(rating) ? "fill-[#ffd700] text-[#ffd700]" : "fill-gray-200 text-gray-200"}`}
-      />
-    ))}
-  </div>
-);
-
-interface Product {
-  id: number;
-  name: string;
-  price: number;
-  oldPrice?: number;
-  rating: number;
-  image: string;
-  tag?: string | null;
-}
-
-const ProductCard = ({ product }: { product: Product }) => {
-  const addItem = useCartStore((state) => state.addItem);
-
-  const handleAddToCart = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    addItem({
-      id: product.id,
-      name: product.name,
-      price: product.price,
-      image: product.image,
-      quantity: 1,
-    });
-    toast.success("Added to cart!");
-  };
-
-  return (
-    <Link href={`/products/${product.id}`} className="block h-full">
-      <div className="group relative bg-white rounded-2xl p-3 md:p-4 border border-transparent hover:border-gray-100 shadow-sm hover:shadow-lg transition-all duration-300 h-full flex flex-col">
-        {/* Discount Badge */}
-        {product.tag && (
-          <Badge
-            className={`absolute top-3 left-3 z-10 px-2 py-0.5 text-[10px] font-bold rounded-sm border-none shadow-sm ${product.tag === "OUT OF STOCK" ? "bg-red-50 text-red-600" : "bg-[#ffd700] text-slate-900"}`}
-          >
-            {product.tag}
-          </Badge>
-        )}
-
-        {/* Wishlist Button */}
-        <button
-          className="absolute top-2 right-2 z-10 p-2 text-slate-300 hover:text-red-500 transition-colors"
-          onClick={(e) => {
-            e.preventDefault();
-            toast.success("Added to wishlist");
-          }}
-        >
-          <Heart className="h-5 w-5 fill-current" />
-        </button>
-
-        {/* Product Image */}
-        <div className="relative aspect-[1/1] mb-3 overflow-hidden rounded-xl bg-gray-50/50">
-          <Image
-            src={product.image}
-            alt={product.name}
-            fill
-            className="object-contain p-4 group-hover:scale-105 transition-transform duration-500 ease-out"
-          />
-        </div>
-
-        {/* Product Info */}
-        <div className="flex-1 flex flex-col space-y-2">
-          <h3 className="font-semibold text-sm text-slate-800 leading-snug line-clamp-2 h-[36px]">
-            {product.name}
-          </h3>
-
-          <div className="mt-auto space-y-2">
-            <div className="flex flex-col">
-              <div className="flex items-center gap-2">
-                <span className="text-lg font-bold text-slate-900">
-                  ₹{product.price.toLocaleString("en-IN")}
-                </span>
-                {product.oldPrice && (
-                  <span className="text-xs text-slate-400 line-through">
-                    ₹{product.oldPrice.toLocaleString("en-IN")}
-                  </span>
-                )}
-              </div>
-              {product.oldPrice && (
-                <span className="text-[10px] font-bold text-green-600">
-                  {Math.round(
-                    ((product.oldPrice - product.price) / product.oldPrice) *
-                      100,
-                  )}
-                  % off
-                </span>
-              )}
-            </div>
-
-            <Button
-              size="sm"
-              className="w-full rounded-full bg-[#ffd700] hover:bg-[#ffe135] text-slate-900 text-xs font-bold h-9 shadow-sm"
-              onClick={handleAddToCart}
-            >
-              Add to Cart
-            </Button>
-          </div>
-        </div>
-      </div>
-    </Link>
-  );
 };
 
 export default function Home() {
@@ -235,32 +124,37 @@ export default function Home() {
           <ScrollBar orientation="horizontal" className="hidden" />
         </ScrollArea>
       </section>
-
-      {/* 3. Small Banners (Stacked Grid) */}
+      {/* 3. Small Banners (Premium Cards) */}
       <section className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {data.smallBanners.map((banner) => (
-            <div
+            <Card
               key={banner.id}
-              className="relative h-40 md:h-48 rounded-2xl overflow-hidden bg-white border border-gray-100 shadow-sm flex items-center px-6"
+              className="group relative h-40 md:h-48 overflow-hidden bg-white border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-500 rounded-3xl p-0"
             >
-              <div className="relative z-10 w-1/2 space-y-2">
-                <h3 className="font-black text-lg md:text-xl text-slate-900 leading-none uppercase">
+              <div className="absolute inset-0 bg-linear-to-br from-white via-white/40 to-transparent z-10" />
+              <div className="relative z-20 w-3/5 h-full flex flex-col justify-center pl-8 space-y-3">
+                <h3 className="font-black text-xl md:text-2xl text-slate-900 leading-[1.1] uppercase tracking-tighter">
                   {banner.title}
                 </h3>
-                <span className="inline-block text-[10px] font-bold bg-[#ffd700] px-2 py-0.5 rounded-sm">
-                  {banner.subtitle}
-                </span>
+                <div>
+                  <span className="inline-block text-[10px] font-black bg-[#ffd700] text-slate-900 px-3 py-1 rounded-full shadow-sm uppercase tracking-wider">
+                    {banner.subtitle}
+                  </span>
+                </div>
               </div>
-              <div className="absolute right-0 bottom-0 top-0 w-1/2">
-                <Image
-                  src={banner.image}
-                  alt={banner.title}
-                  fill
-                  className="object-contain p-4"
-                />
+              <div className="absolute right-0 bottom-0 top-0 w-1/2 flex items-center justify-center p-4">
+                <div className="relative w-full h-[90%] transform group-hover:scale-110 group-hover:-rotate-3 transition-all duration-700">
+                  <Image
+                    src={banner.image}
+                    alt={banner.title}
+                    fill
+                    className="object-contain"
+                    sizes="(max-width: 768px) 40vw, 20vw"
+                  />
+                </div>
               </div>
-            </div>
+            </Card>
           ))}
         </div>
       </section>

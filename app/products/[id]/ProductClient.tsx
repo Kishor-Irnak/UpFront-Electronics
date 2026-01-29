@@ -19,10 +19,17 @@ import {
   Cpu,
   Camera as CameraIcon,
   Battery,
+  User,
+  MessageSquare,
 } from "lucide-react";
 import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
+import { Separator } from "@/components/ui/separator";
 import { useCartStore } from "@/store/cartStore";
 import {
   Accordion,
@@ -55,6 +62,8 @@ export default function ProductDetails({
   const router = useRouter();
   const [activeImage, setActiveImage] = React.useState<string>(product.image);
   const [quantity, setQuantity] = React.useState(1);
+  const [userRating, setUserRating] = React.useState(0);
+  const [hoverRating, setHoverRating] = React.useState(0);
   const addItem = useCartStore((state) => state.addItem);
 
   const discountPercentage = product.oldPrice
@@ -337,6 +346,171 @@ export default function ProductDetails({
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Reviews Section */}
+      <div
+        id="reviews"
+        className="container mx-auto px-4 mt-20 border-t border-gray-100 pt-16"
+      >
+        <div className="flex flex-col lg:flex-row gap-16">
+          {/* Left Column: Review Summary & List */}
+          <div className="lg:col-span-12 w-full lg:w-2/3 space-y-10">
+            <div className="flex items-center justify-between">
+              <h2 className="text-3xl font-black text-slate-900 tracking-tight flex items-center gap-3">
+                Customer Reviews
+                <Badge
+                  variant="secondary"
+                  className="bg-[#ffd700] text-slate-900 rounded-full px-3"
+                >
+                  {product.reviews}
+                </Badge>
+              </h2>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {/* Mock Review 1 */}
+              <div className="bg-gray-50/50 rounded-3xl p-8 space-y-4 border border-transparent hover:border-gray-100 transition-all">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <div className="h-12 w-12 rounded-full bg-[#ffd700]/20 flex items-center justify-center">
+                      <User className="h-6 w-6 text-slate-700" />
+                    </div>
+                    <div>
+                      <p className="font-bold text-slate-900">Rahul Sharma</p>
+                      <p className="text-xs text-slate-500 font-medium">
+                        Verified Buyer • 2 days ago
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex gap-0.5">
+                    {[...Array(5)].map((_, i) => (
+                      <Star
+                        key={i}
+                        className="h-3 w-3 fill-[#ffd700] text-[#ffd700]"
+                      />
+                    ))}
+                  </div>
+                </div>
+                <p className="text-slate-700 leading-relaxed font-medium capitalize">
+                  "Absolutely amazing product! The build quality is premium and
+                  it performs better than expected. Highly recommended for
+                  everyone."
+                </p>
+              </div>
+
+              {/* Mock Review 2 */}
+              <div className="bg-gray-50/50 rounded-3xl p-8 space-y-4 border border-transparent hover:border-gray-100 transition-all">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <div className="h-12 w-12 rounded-full bg-blue-50 flex items-center justify-center">
+                      <User className="h-6 w-6 text-slate-700" />
+                    </div>
+                    <div>
+                      <p className="font-bold text-slate-900">Ananya Iyer</p>
+                      <p className="text-xs text-slate-500 font-medium">
+                        Verified Buyer • 1 week ago
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex gap-0.5">
+                    {[...Array(5)].map((_, i) => (
+                      <Star
+                        key={i}
+                        className={`h-3 w-3 ${i < 4 ? "fill-[#ffd700] text-[#ffd700]" : "fill-gray-200 text-gray-200"}`}
+                      />
+                    ))}
+                  </div>
+                </div>
+                <p className="text-slate-700 leading-relaxed font-medium capitalize">
+                  "Great value for money. The delivery was super fast and the
+                  packaging was excellent. One star less just because of the
+                  color options."
+                </p>
+              </div>
+            </div>
+
+            <Button
+              variant="outline"
+              className="w-full h-14 rounded-full border-2 border-slate-200 font-bold text-slate-900 hover:bg-slate-50"
+            >
+              Show All Reviews
+            </Button>
+          </div>
+
+          {/* Right Column: Write a Review Form */}
+          <div className="lg:w-1/3 space-y-8">
+            <div className="bg-slate-900 rounded-[2.5rem] p-8 md:p-10 text-white space-y-8 shadow-2xl shadow-slate-200">
+              <div className="space-y-2">
+                <h3 className="text-2xl font-black tracking-tight">
+                  Write a Review
+                </h3>
+                <p className="text-slate-400 text-sm font-medium">
+                  Your feedback helps us improve and helps others shop better.
+                </p>
+              </div>
+
+              <div className="space-y-6">
+                <div className="space-y-3">
+                  <Label className="text-slate-300 font-bold text-xs uppercase tracking-wider">
+                    Overall Rating
+                  </Label>
+                  <div className="flex gap-2">
+                    {[1, 2, 3, 4, 5].map((s) => (
+                      <button
+                        key={s}
+                        className="p-1 hover:scale-110 transition-transform focus:outline-none"
+                        onMouseEnter={() => setHoverRating(s)}
+                        onMouseLeave={() => setHoverRating(0)}
+                        onClick={() => {
+                          setUserRating(s);
+                          toast.success(`You rated ${s} stars!`);
+                        }}
+                      >
+                        <Star
+                          className={`h-8 w-8 transition-all duration-200 ${
+                            s <= (hoverRating || userRating)
+                              ? "fill-[#ffd700] text-[#ffd700]"
+                              : "text-slate-700 fill-slate-800"
+                          }`}
+                        />
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="space-y-3">
+                  <Label className="text-slate-300 font-bold text-xs uppercase tracking-wider">
+                    Your Review
+                  </Label>
+                  <Textarea
+                    placeholder="What did you like or dislike? How are you using it?"
+                    className="bg-slate-800 border-none rounded-2xl min-h-[120px] focus-visible:ring-1 focus-visible:ring-[#ffd700] text-white placeholder:text-slate-500 p-4"
+                  />
+                </div>
+
+                <div className="space-y-3">
+                  <Label className="text-slate-300 font-bold text-xs uppercase tracking-wider">
+                    Title
+                  </Label>
+                  <Input
+                    placeholder="Sum up your review in one line"
+                    className="bg-slate-800 border-none rounded-2xl h-12 focus-visible:ring-1 focus-visible:ring-[#ffd700] text-white placeholder:text-slate-500 px-4"
+                  />
+                </div>
+
+                <Button
+                  className="w-full h-14 rounded-full bg-[#ffd700] hover:bg-[#ffe135] text-slate-900 font-black text-lg shadow-xl shadow-[#ffd700]/10"
+                  onClick={() =>
+                    toast.success("Review submitted for moderation!")
+                  }
+                >
+                  Submit Review
+                </Button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
