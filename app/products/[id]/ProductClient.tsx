@@ -31,6 +31,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { useCartStore } from "@/store/cartStore";
+import { useWishlistStore } from "@/store/wishlistStore";
 import {
   Accordion,
   AccordionContent,
@@ -65,6 +66,12 @@ export default function ProductDetails({
   const [userRating, setUserRating] = React.useState(0);
   const [hoverRating, setHoverRating] = React.useState(0);
   const addItem = useCartStore((state) => state.addItem);
+  const {
+    addItem: addToWishlist,
+    removeItem: removeFromWishlist,
+    hasItem,
+  } = useWishlistStore();
+  const isWishlisted = hasItem(product.id);
 
   const discountPercentage = product.oldPrice
     ? Math.round(((product.oldPrice - product.price) / product.oldPrice) * 100)
@@ -79,6 +86,16 @@ export default function ProductDetails({
       quantity: quantity,
     });
     toast.success("Added to cart!");
+  };
+
+  const handleWishlistToggle = () => {
+    if (isWishlisted) {
+      removeFromWishlist(product.id);
+      toast.success("Removed from wishlist");
+    } else {
+      addToWishlist(product);
+      toast.success("Added to wishlist");
+    }
   };
 
   return (
@@ -108,8 +125,11 @@ export default function ProductDetails({
                   size="icon"
                   variant="secondary"
                   className="rounded-full bg-white shadow-sm hover:shadow-md text-slate-600 hover:text-red-500 transition-all"
+                  onClick={handleWishlistToggle}
                 >
-                  <Heart className="h-5 w-5" />
+                  <Heart
+                    className={`h-5 w-5 ${isWishlisted ? "fill-red-500 text-red-500" : ""}`}
+                  />
                 </Button>
                 <Button
                   size="icon"

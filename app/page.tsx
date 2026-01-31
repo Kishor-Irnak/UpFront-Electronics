@@ -51,48 +51,76 @@ const IconMap: Record<string, React.ElementType> = {
 };
 
 export default function Home() {
+  const [currentSlide, setCurrentSlide] = React.useState(0);
+
+  React.useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % data.heroBanners.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, []);
+
   return (
     <div className="flex flex-col gap-8 pb-24 bg-gray-50/50">
-      {/* 1. Hero Section (Mobile Optimized) */}
+      {/* 1. Hero Section (Automatic Carousel) */}
       <section className="px-4 pt-4 md:pt-6">
-        <div className="relative rounded-[2rem] overflow-hidden h-[400px] md:h-[500px] bg-white group shadow-sm">
-          <Image
-            src={data.heroBanner.image}
-            alt="Hero Banner"
-            fill
-            className="object-cover object-bottom md:object-right transition-transform duration-1000 group-hover:scale-105"
-            priority
-          />
-          <div className="absolute inset-0 bg-linear-to-t md:bg-linear-to-r from-white via-white/50 to-transparent" />
-
-          <div className="absolute inset-0 flex flex-col justify-end md:justify-center p-6 md:p-12 pb-12 md:pb-12 text-center md:text-left items-center md:items-start">
-            <Badge className="bg-slate-900 text-white border-none px-3 py-1 mb-4 text-[10px] tracking-widest uppercase font-bold rounded-full animate-in fade-in slide-in-from-bottom-5">
-              New Arrival
-            </Badge>
-            <h2 className="text-4xl md:text-6xl font-black text-slate-900 leading-[0.9] tracking-tighter mb-4 max-w-sm">
-              {data.heroBanner.title}
-            </h2>
-            <div className="flex flex-col md:flex-row items-center gap-2 md:gap-4 mb-6">
-              <p className="text-sm font-bold text-slate-500 uppercase tracking-widest">
-                Starting at
-              </p>
-              <span className="text-3xl font-black text-slate-900">
-                ₹59,999
-              </span>
-            </div>
-            <Button
-              size="lg"
-              className="h-12 md:h-14 rounded-full bg-[#ffd700] hover:bg-[#ffe135] text-slate-900 font-bold px-8 shadow-lg shadow-yellow-400/20 active:scale-95 transition-all w-full md:w-auto"
+        <div className="relative rounded-[2rem] overflow-hidden h-[400px] md:h-[500px] bg-white group shadow-sm transition-all duration-700">
+          {data.heroBanners.map((banner, index) => (
+            <div
+              key={banner.id}
+              className={`absolute inset-0 transition-all duration-1000 ease-in-out ${
+                index === currentSlide
+                  ? "opacity-100 translate-x-0"
+                  : "opacity-0 translate-x-full"
+              }`}
             >
-              {data.heroBanner.buttonText}
-            </Button>
-          </div>
+              <Image
+                src={banner.image}
+                alt={banner.title}
+                fill
+                className="object-cover object-bottom md:object-right"
+                priority={index === 0}
+              />
+              <div className="absolute inset-0 bg-linear-to-t md:bg-linear-to-r from-white via-white/40 to-transparent" />
 
-          {/* Dots */}
-          <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-2">
-            <div className="h-1.5 w-6 rounded-full bg-slate-900" />
-            <div className="h-1.5 w-1.5 rounded-full bg-slate-300" />
-            <div className="h-1.5 w-1.5 rounded-full bg-slate-300" />
+              <div className="absolute inset-0 flex flex-col justify-end md:justify-center p-6 md:p-12 pb-12 md:pb-12 text-center md:text-left items-center md:items-start">
+                <Badge className="bg-slate-900 text-white border-none px-3 py-1 mb-4 text-[10px] tracking-widest uppercase font-bold rounded-full">
+                  {banner.tag}
+                </Badge>
+                <h2 className="text-4xl md:text-6xl font-black text-slate-900 leading-[0.9] tracking-tighter mb-4 max-w-sm">
+                  {banner.title}
+                </h2>
+                <div className="flex flex-col md:flex-row items-center gap-2 md:gap-4 mb-6">
+                  <p className="text-sm font-bold text-slate-500 uppercase tracking-widest">
+                    Starting at
+                  </p>
+                  <span className="text-3xl font-black text-slate-900">
+                    ₹{banner.price}
+                  </span>
+                </div>
+                <Button
+                  size="lg"
+                  className="h-12 md:h-14 rounded-full bg-[#ffd700] hover:bg-[#ffe135] text-slate-900 font-bold px-8 shadow-lg shadow-yellow-400/20 active:scale-95 transition-all w-full md:w-auto"
+                >
+                  {banner.buttonText}
+                </Button>
+              </div>
+            </div>
+          ))}
+
+          {/* Indicators */}
+          <div className="absolute bottom-6 left-0 right-0 flex justify-center gap-2 z-20">
+            {data.heroBanners.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setCurrentSlide(i)}
+                className={`transition-all duration-300 ${
+                  i === currentSlide
+                    ? "h-1.5 w-8 bg-slate-900 rounded-full"
+                    : "h-1.5 w-1.5 bg-slate-300 rounded-full hover:bg-slate-400"
+                }`}
+              />
+            ))}
           </div>
         </div>
       </section>

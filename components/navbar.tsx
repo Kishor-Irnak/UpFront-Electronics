@@ -22,9 +22,12 @@ import {
 } from "@/components/ui/dropdown-menu";
 import data from "@/data.json";
 import { useCartStore } from "@/store/cartStore";
+import { useWishlistStore } from "@/store/wishlistStore";
 
 export function Navbar() {
   const { items, total } = useCartStore();
+  const { items: wishlistItems } = useWishlistStore();
+  const wishlistCount = wishlistItems.length;
   const [mounted, setMounted] = React.useState(false);
 
   React.useEffect(() => {
@@ -36,37 +39,12 @@ export function Navbar() {
   return (
     <div className="flex flex-col w-full sticky top-0 z-50 bg-white shadow-sm">
       {/* 1. Top Bar (Yellow) */}
-      <div className="bg-[#ffd700] px-4 py-1.5 text-[10px] md:text-xs font-semibold text-slate-900 tracking-wide">
-        <div className="container mx-auto flex flex-col md:flex-row justify-between items-center gap-2">
-          <p className="hidden md:block opacity-90">{data.topBar.message}</p>
-          <div className="flex items-center gap-6">
-            <Link href="#" className="hover:text-black/70 transition-colors">
-              Offer Zone
-            </Link>
-            <div className="w-px h-3 bg-black/10 hidden md:block" />
-            <Link href="#" className="hover:text-black/70 transition-colors">
-              Gift Cards
-            </Link>
-            <div className="w-px h-3 bg-black/10 hidden md:block" />
-            <DropdownMenu>
-              <DropdownMenuTrigger className="flex items-center gap-1 hover:text-black/70 outline-none transition-colors">
-                INR <ChevronDown className="h-3 w-3 opacity-60" />
-              </DropdownMenuTrigger>
-              <DropdownMenuContent className="text-xs">
-                <DropdownMenuItem>USD</DropdownMenuItem>
-                <DropdownMenuItem>INR</DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-            <DropdownMenu>
-              <DropdownMenuTrigger className="flex items-center gap-1 hover:text-black/70 outline-none transition-colors">
-                English <ChevronDown className="h-3 w-3 opacity-60" />
-              </DropdownMenuTrigger>
-              <DropdownMenuContent className="text-xs">
-                <DropdownMenuItem>English</DropdownMenuItem>
-                <DropdownMenuItem>Spanish</DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </div>
+      <div className="bg-[#ffd700] py-1.5 text-[10px] md:text-xs font-bold text-slate-900 overflow-hidden whitespace-nowrap">
+        <div className="animate-marquee inline-block px-4">
+          <span className="mx-4">{data.topBar.message}</span>
+          <span className="mx-4">{data.topBar.message}</span>
+          <span className="mx-4">{data.topBar.message}</span>
+          <span className="mx-4">{data.topBar.message}</span>
         </div>
       </div>
 
@@ -111,8 +89,10 @@ export function Navbar() {
             >
               <div className="relative">
                 <Heart className="h-6 w-6 stroke-[1.5] group-hover:stroke-2 transition-all" />
-                <span className="absolute -top-1.5 -right-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-[#ffd700] text-[9px] font-extrabold shadow-sm transform scale-0 group-hover:scale-100 transition-transform">
-                  0
+                <span
+                  className={`absolute -top-1.5 -right-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-[#ffd700] text-[9px] font-extrabold shadow-sm transform transition-transform ${wishlistCount > 0 ? "scale-100" : "scale-0 group-hover:scale-100"}`}
+                >
+                  {wishlistCount}
                 </span>
               </div>
               <span className="text-[10px] font-bold uppercase tracking-wider hidden md:block">
@@ -160,12 +140,17 @@ export function Navbar() {
               sideOffset={0}
             >
               {data.categories.map((cat) => (
-                <DropdownMenuItem
+                <Link
                   key={cat.name}
-                  className="py-2.5 px-4 font-medium text-slate-600 focus:text-slate-900 focus:bg-[#fff9c4] rounded-lg cursor-pointer"
+                  href={`/products?category=${cat.name
+                    .toLowerCase()
+                    .replace(/ /g, "-")}`}
+                  passHref
                 >
-                  {cat.name}
-                </DropdownMenuItem>
+                  <DropdownMenuItem className="py-2.5 px-4 font-medium text-slate-600 focus:text-slate-900 focus:bg-[#fff9c4] rounded-lg cursor-pointer">
+                    {cat.name}
+                  </DropdownMenuItem>
+                </Link>
               ))}
             </DropdownMenuContent>
           </DropdownMenu>

@@ -1,5 +1,6 @@
 "use client";
 
+import * as React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Heart, Star } from "lucide-react";
@@ -8,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { useCartStore } from "@/store/cartStore";
+import { useWishlistStore } from "@/store/wishlistStore";
 
 interface Product {
   id: number;
@@ -18,6 +20,7 @@ interface Product {
   reviews: number;
   image: string;
   tag?: string | null;
+  category: string;
 }
 
 const StarRating = ({ rating }: { rating: number }) => (
@@ -32,7 +35,19 @@ const StarRating = ({ rating }: { rating: number }) => (
 );
 
 export const ProductCard = ({ product }: { product: Product }) => {
+  const [mounted, setMounted] = React.useState(false);
   const addItem = useCartStore((state) => state.addItem);
+  const {
+    addItem: addToWishlist,
+    removeItem: removeFromWishlist,
+    hasItem,
+  } = useWishlistStore();
+
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const isWishlisted = mounted ? hasItem(product.id) : false;
 
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -45,6 +60,28 @@ export const ProductCard = ({ product }: { product: Product }) => {
       quantity: 1,
     });
     toast.success("Added to cart!");
+  };
+
+  const handleWishlistToggle = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (isWishlisted) {
+      removeFromWishlist(product.id);
+      toast.success("Removed from wishlist");
+    } else {
+      addToWishlist({
+        id: product.id,
+        name: product.name,
+        price: product.price,
+        image: product.image,
+        rating: product.rating,
+        reviews: product.reviews,
+        oldPrice: product.oldPrice,
+        tag: product.tag,
+        category: product.category,
+      });
+      toast.success("Added to wishlist");
+    }
   };
 
   return (
@@ -65,12 +102,11 @@ export const ProductCard = ({ product }: { product: Product }) => {
         {/* Wishlist Button */}
         <button
           className="absolute top-2 right-2 z-10 p-2 text-slate-300 hover:text-red-500 transition-colors"
-          onClick={(e) => {
-            e.preventDefault();
-            toast.success("Added to wishlist");
-          }}
+          onClick={handleWishlistToggle}
         >
-          <Heart className="h-5 w-5 fill-current" />
+          <Heart
+            className={`h-5 w-5 ${isWishlisted ? "fill-red-500 text-red-500" : "fill-current"}`}
+          />
         </button>
 
         {/* Product Image */}

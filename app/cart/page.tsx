@@ -39,7 +39,7 @@ export default function CartPage() {
     <div className="container mx-auto px-4 py-12">
       <h1 className="text-3xl font-bold text-slate-900 mb-8">Shopping Cart</h1>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-12">
         {/* Cart Items List */}
         <div className="lg:col-span-2 space-y-6">
           <div className="bg-white rounded-2xl border p-6 hidden md:grid grid-cols-12 gap-4 text-sm font-bold text-slate-500 uppercase tracking-wide">
@@ -49,7 +49,7 @@ export default function CartPage() {
             <div className="col-span-2 text-right">Total</div>
           </div>
 
-          <ScrollArea className="h-[600px] pr-4">
+          <ScrollArea className="h-full max-h-[600px] pr-4">
             <div className="space-y-4">
               {items.map((item) => (
                 <div

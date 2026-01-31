@@ -28,7 +28,7 @@ export default function RootLayout({
         className={`${inter.variable} ${geistMono.variable} font-sans antialiased min-h-screen flex flex-col`}
       >
         <Navbar />
-        <main className="flex-1">{children}</main>
+        <main className="flex-1 pb-20 lg:pb-0">{children}</main>
         <Footer />
         <BottomNav />
       </body>
