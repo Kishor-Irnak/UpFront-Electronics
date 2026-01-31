@@ -4,6 +4,7 @@ import "./globals.css";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { BottomNav } from "@/components/bottom-nav";
+import { DynamicEngagement } from "@/components/dynamic-engagement";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -31,6 +32,7 @@ export default function RootLayout({
         <main className="flex-1 pb-20 lg:pb-0">{children}</main>
         <Footer />
         <BottomNav />
+        <DynamicEngagement />
       </body>
     </html>
   );
