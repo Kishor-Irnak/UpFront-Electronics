@@ -2,12 +2,13 @@
 
 import * as React from "react";
 import { Zap } from "lucide-react";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 import { ProductCard } from "@/components/product-card";
 import data from "@/data.json";
 
-export default function ProductsPage() {
+function ProductsContent() {
   const searchParams = useSearchParams();
+  const router = useRouter();
   const categoryParam = searchParams.get("category");
   const sortParam = searchParams.get("sort");
   const queryParam = searchParams.get("search");
@@ -95,7 +96,7 @@ export default function ProductsPage() {
               No products found for this category.
             </p>
             <button
-              onClick={() => (window.location.href = "/products")}
+              onClick={() => router.push("/products")}
               className="mt-4 px-6 py-2 bg-[#ffd700] text-slate-900 rounded-lg font-black hover:bg-[#ffe135] transition-colors"
             >
               Clear Filters
@@ -104,5 +105,19 @@ export default function ProductsPage() {
         )}
       </section>
     </div>
+  );
+}
+
+export default function ProductsPage() {
+  return (
+    <React.Suspense
+      fallback={
+        <div className="flex items-center justify-center min-h-screen">
+          <Zap className="h-12 w-12 text-[#ffd700] animate-pulse" />
+        </div>
+      }
+    >
+      <ProductsContent />
+    </React.Suspense>
   );
 }
